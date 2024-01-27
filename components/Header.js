@@ -16,7 +16,7 @@ const Header = () => {
     return (
       <div>
         <header className="bg-white border-b sticky top-0">
-          <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
+          <div className="lg:px-8">
             <div className="flex h-16 items-center justify-between">
               <div className="flex-1 md:flex md:items-center md:gap-12">
                 <Link className="block text-teal-600" href="/">
@@ -25,13 +25,13 @@ const Header = () => {
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                     stroke="currentColor"
-                    class="w-6 h-6"
+                    className="w-6 h-6"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z"
                     />
                   </svg>
@@ -52,7 +52,7 @@ const Header = () => {
                     <li>
                       <Link
                         className={`${location.pathname === '/products' ? active : inactive}`}
-                        href="/"
+                        href="/products"
                       >
                         Products
                       </Link>
@@ -86,9 +86,9 @@ const Header = () => {
 
                 <div className="flex items-center gap-4">
                   <div className="sm:flex sm:gap-4">
-                    <div class="h-10 w-10">
+                    <div className="h-10 w-10">
                       <Image
-                        class="h-full w-full rounded-full object-cover object-center"
+                        className="h-full w-full rounded-full object-cover object-center"
                         src={session.user.image}
                         alt=""
                         width={50}
