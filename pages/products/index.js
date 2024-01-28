@@ -1,6 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import Image from "next/image";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -78,6 +80,7 @@ const Products = () => {
           <thead className="bg-gray-50">
             <tr>
               <th scope="col" className="px-6 py-4 font-medium text-gray-900"></th>
+              <th scope="col" className="px-6 py-4 font-medium text-gray-900">Image</th>
               <th scope="col" className="px-6 py-4 font-medium text-gray-900">Name</th>
               <th scope="col" className="px-6 py-4 font-medium text-gray-900">Description</th>
               <th scope="col" className="px-6 py-4 font-medium text-gray-900">Price</th>              
@@ -88,11 +91,16 @@ const Products = () => {
           <tbody className="divide-y divide-gray-100 border-t border-gray-100" key={product._id}>
             <tr>
               <th className="px-6 py-4 font-medium text-gray-900">{index+1}</th>
+              <td className="px-6 py-4">
+                <div class="relative h-10 w-10">
+                <img class="h-full w-full rounded-full object-cover object-center"  src={product.images[0]} alt="frfr" />
+                </div>
+              </td>
               <td className="px-6 py-4">{product.title}</td>
               <td className="px-6 py-4 truncate max-w-xs">{product.description}</td>
               <td className="px-6 py-4">{formatPrice(product.price)}</td>
               <td className="flex justify-end gap-4 px-6 py-4 font-medium">
-                <Link href="" className="text-red-700">Delete</Link>
+                <Link href={'/products/delete/' + product._id} className="text-red-700">Delete</Link>
                 <Link href={'/products/edit/' + product._id} className="text-green-700">Edit</Link>
               </td>
             </tr>

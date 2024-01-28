@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import Spinner from "./Spinner";
 import { ReactSortable } from "react-sortablejs";
-import Image from "next/image";
+import toast from 'react-hot-toast';
 
 const Product = ({
   _id,
@@ -45,8 +45,10 @@ const Product = ({
 
       if(_id) {
         await axios.put("/api/products", {...data, _id});
+        toast.success('product Edited Successfully!');
       } else {
         await axios.post("/api/products", data);
+        toast.success('product Created Successfully!');
       }
 
       router.push("/products");

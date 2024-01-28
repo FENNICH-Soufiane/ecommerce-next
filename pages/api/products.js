@@ -35,12 +35,12 @@ const handle = async (req, res) => {
       res.json(true);
     }
 
-    // if(method === "DELETE") {
-    //   if(req.query.id) {
-    //     await Product.deleteOne({_id = req.query.id})
-    //     res.json(true);
-    //   }
-    // }
+    if(method === "DELETE") {
+      if(req.query.id) {
+        await Product.deleteOne({_id : req.query.id})
+        res.json(true);
+      }
+    }
   } catch (error) {
     console.error("Error creating product:", error);
     res.status(500).json({ error: "Internal Server Error" });

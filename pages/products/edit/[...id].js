@@ -18,7 +18,7 @@ const EditProduct = () => {
             setProductInfo(response.data)
          })
       }
-    }, [])
+    }, [id])
 
   return (
     <>
