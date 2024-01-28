@@ -1,6 +1,28 @@
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import axios from 'axios';
 
 const Products = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const formatPrice = (price) => {
+    // Utiliser la méthode toLocaleString sans le style currency
+    return price.toLocaleString('fr-FR', { 
+      // minimumFractionDigits: 2, 
+      // maximumFractionDigits: 2, 
+      useGrouping: true, // Activer le séparateur de milliers
+    });
+  };
+  
+
+  useEffect(() => {
+    axios.get('/api/products').then(res => {
+      setProducts(res.data);
+      setLoading(false);
+    })
+  }, []);
+
   return (
     <>
       <header>
@@ -47,7 +69,43 @@ const Products = () => {
       <hr className="my-1 h-px border-0 bg-gray-300" />
 
       <div className="mx-auto max-w-screen-2xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8 text-center">
-        no Products
+        {
+          products.length === 0 ? (<p>No product found</p>) : 
+          (<>
+
+      <div className="">
+        <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
+          <thead className="bg-gray-50">
+            <tr>
+              <th scope="col" className="px-6 py-4 font-medium text-gray-900"></th>
+              <th scope="col" className="px-6 py-4 font-medium text-gray-900">Name</th>
+              <th scope="col" className="px-6 py-4 font-medium text-gray-900">Description</th>
+              <th scope="col" className="px-6 py-4 font-medium text-gray-900">Price</th>              
+              <th scope="col" className="px-6 py-4 font-medium text-gray-900"></th>
+            </tr>
+          </thead>
+          {products.map((product, index) =>(
+          <tbody className="divide-y divide-gray-100 border-t border-gray-100" key={product._id}>
+            <tr>
+              <th className="px-6 py-4 font-medium text-gray-900">{index+1}</th>
+              <td className="px-6 py-4">{product.title}</td>
+              <td className="px-6 py-4 truncate max-w-xs">{product.description}</td>
+              <td className="px-6 py-4">{formatPrice(product.price)}</td>
+              <td className="flex justify-end gap-4 px-6 py-4 font-medium">
+                <Link href="" className="text-red-700">Delete</Link>
+                <Link href={'/products/edit/' + product._id} className="text-green-700">Edit</Link>
+              </td>
+            </tr>
+              
+          </tbody>
+
+          )
+          )}
+          </table>
+        </div>
+
+          </>)
+        }
       </div>
 
     </>

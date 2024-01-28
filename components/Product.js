@@ -6,14 +6,20 @@ import Spinner from "./Spinner";
 import { ReactSortable } from "react-sortablejs";
 import Image from "next/image";
 
-const Product = () => {
+const Product = ({
+  _id,
+  title:existingTitle,
+  description: existingDescription,
+  price: existingPrice,
+  images: existingImages
+}) => {
   const [redirect, setRedirect] = useState(false);
   const router = useRouter();
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [images, setImages] = useState([]);
+  const [title, setTitle] = useState(existingTitle || "");
+  const [description, setDescription] = useState(existingDescription || "");
+  const [price, setPrice] = useState(existingPrice || "");
+  const [images, setImages] = useState(existingImages || []);
 
   const [isUploading, setIsUploading] = useState(false);
 
@@ -32,11 +38,16 @@ const Product = () => {
     // }
 
     try {
-      if (isUploading) {
-        await Promise.all(uploadImagesQueue);
-      }
+      // if (isUploading) {
+      //   await Promise.all(uploadImagesQueue);
+      // }
       const data = { title, description, price, images };
-      await axios.post("/api/products", data);
+
+      if(_id) {
+        await axios.put("/api/products", {...data, _id});
+      } else {
+        await axios.post("/api/products", data);
+      }
 
       router.push("/products");
     } catch (error) {
