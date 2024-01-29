@@ -77,7 +77,7 @@ const Header = () => {
                     <li>
                       <Link
                         className={`${location.pathname === '/settings' ? active : inactive}`}
-                        href="/"
+                        href="/settings"
                       >
                         Settings
                       </Link>
