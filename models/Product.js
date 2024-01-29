@@ -18,6 +18,7 @@ const ProductSchema = new mongoose.Schema({
         required: false,
         default: []
     }
+    // images: [{type:String}]
 });
 
 // export default mongoose.model('Product', ProductSchema);
